@@ -1,0 +1,12 @@
+{
+  "name": "assignementone",
+  "version": "1.0.0",
+  "description": "We take input form the query string check the endpoints and then sends the data as response",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node scripts/main2.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
