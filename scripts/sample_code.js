@@ -352,13 +352,7 @@ r.on("end", function() {
 
 
 
-// var request = require("request");
 
-// var s = request("https://www.google.com/");
-
-// s.on("data", function (chunk) {
-//     console.log(chunk);
-// });
 
 
 
