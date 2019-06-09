@@ -12,19 +12,6 @@ var a = path.resolve(__dirname, "../data/HolidayList.json");
 let rawdata = fs.readFileSync(path.resolve(__dirname, "../data/HolidaysList.json"));  
 let holidays = JSON.parse(rawdata);  
 
-
-// for(var k in holidays) {
-//     // k => key
-//     // holidays[k] => value
-//     // console.log(holidays[k]);
-//     let holidayType = holidays[k];
-//     for(let m in holidayType){
-//         console.log(m);
-//         console.log(holidayType[m]);
-//     }
-//     console.log("----------------");
-//  }
-
 const port = 3000;
 const hostname = "127.0.0.1";
 
