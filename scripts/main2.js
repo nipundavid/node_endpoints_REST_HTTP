@@ -4,6 +4,9 @@ const path = require("path");
 const fs = require('fs');
 const url = require('url');
 
+var getPublicHolidays = require("./public_holoidays.js");
+var getFlexibleHolidays = require("./flexibleholidays.js");
+
 var a = path.resolve(__dirname, "../data/HolidayList.json");
 
 let rawdata = fs.readFileSync(path.resolve(__dirname, "../data/HolidaysList.json"));  
@@ -41,7 +44,7 @@ http.createServer((req, res) => {
     }
 
     if(reqUrl.pathname == "/flexible" && req.method === "GET") {
-        getFlexibleHolidays(req, res);
+        getFlexibleHolidays(req,res);
     }
 }).listen(port, hostname, ()=> {
     console.log("server is running");
@@ -60,47 +63,5 @@ function sampleRequest(req, res) {
 
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(response));
-}
-
-function getPublicHolidays(req, res) {
-    const reqUrl = url.parse(req.url, true);
-    var response = "This is public holiday";
-    if (reqUrl.query.month) {
-        for(var k in holidays) {
-            let holidayType = holidays[k];
-                for(let m in holidayType){
-                    if(reqUrl.query.month.toLowerCase() == m.toLowerCase()) {
-                        response = holidayType[m];
-                    }
-                }
-         }
-    }
-
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-
-    res.end(JSON.stringify(response));
-}
-
-function getFlexibleHolidays(req, res) {
-    const reqUrl = url.parse(req.url, true);
-    
-    var response = "This is fliexible holiday";
-
-    if (reqUrl.query.month) {
-        for(var k in holidays) {
-            let holidayType = holidays[k];
-                for(let m in holidayType){
-                    if(reqUrl.query.month.toLowerCase() == m.toLowerCase()) {
-                        response = holidayType[m];
-                    }
-                }
-         }
-    }
-
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-
     res.end(JSON.stringify(response));
 }
