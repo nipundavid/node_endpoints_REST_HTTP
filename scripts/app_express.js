@@ -13,15 +13,30 @@ const Book = require(path.resolve(__dirname, "../models/bookModel"));
 //router created
 bookRouter.route("/books")
     .get((req,res)=> {
-        Book.find((err,books) => {
+        const query = {};
+        if(req.query.genre) {
+            query.genre = req.query.genre;
+        }
+        // const query = req.query;
+        Book.find(query, (err,books) => {
             if(err){
                 res.send(err)
             }else {
-                console.log(books);
                 res.json(books);
             }
         });
     });
+
+bookRouter.route("/books/:bookId")
+    .get((req,res)=> {
+        Book.findById(req.params.bookId, (err,books) => {
+            if(err){
+                res.send(err)
+            }else {
+                res.json(books);
+            }
+        });
+});
 
 //added in middleware
 app.use("/api", bookRouter);
