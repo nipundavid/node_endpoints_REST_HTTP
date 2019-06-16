@@ -1,42 +1,16 @@
 const express  = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
-
+const bodyParser = require("body-parser");
 const app = express();
-const bookRouter = express.Router();
-
-var port = process.env.port || 3000;
-
 const db = mongoose.connect("mongodb://localhost/books");
 const Book = require(path.resolve(__dirname, "../models/bookModel"));
+const bookRouter = require("./routes/bookRouter.js")(Book);
 
-//router created
-bookRouter.route("/books")
-    .get((req,res)=> {
-        const query = {};
-        if(req.query.genre) {
-            query.genre = req.query.genre;
-        }
-        // const query = req.query;
-        Book.find(query, (err,books) => {
-            if(err){
-                res.send(err)
-            }else {
-                res.json(books);
-            }
-        });
-    });
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
-bookRouter.route("/books/:bookId")
-    .get((req,res)=> {
-        Book.findById(req.params.bookId, (err,books) => {
-            if(err){
-                res.send(err)
-            }else {
-                res.json(books);
-            }
-        });
-});
+var port = process.env.port || 3000;
 
 //added in middleware
 app.use("/api", bookRouter);
