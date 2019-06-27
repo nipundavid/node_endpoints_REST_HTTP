@@ -60,7 +60,7 @@ function routes(Book) {
             }
             Object.entries (req.body).forEach(item => {
                 const key = item[0];
-                const value = item [1];
+                const value = item[1];
                 
                 book[key] = value;
             });
@@ -69,6 +69,14 @@ function routes(Book) {
                     return res.send(err);
                 }
                 return res.json(book);
+            });
+        })
+        .delete((req, res)=> {
+            req.book.remove((err)=> {
+                if(err) {
+                    return res.send(err);
+                }
+                return res.sendStatus(204);
             });
         });
 
