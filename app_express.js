@@ -4,7 +4,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const app = express();
 const db = mongoose.connect("mongodb://localhost/books");
-const Book = require(path.resolve(__dirname, "../models/bookModel"));
+const Book = require(path.resolve(__dirname, "./models/bookModel"));
 const bookRouter = require("./routes/bookRouter.js")(Book);
 
 app.use(bodyParser.urlencoded({extended: true}));
